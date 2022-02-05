@@ -1,0 +1,154 @@
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;basic registers manipulation
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;MOVE.B #6, d0
+  ;MOVE.B #12, d1
+  ;ADD.B d0, d1
+  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;basic arith - add/divide/mul/sub
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;MOVE.W #$40, d2
+  ;ADD.W #$7, d2
+  ;MOVE.W #$10, d1
+  ;SUB.W #$4, d1
+  ;MULS.W #$10, d1
+  ;MOVE.W #$60, d3
+  ;DIVS.W #$3, d3
+  ;ADD.W d3, d2
+  ;ADD.W d1, d2
+  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;player movement test
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;MOVE.W #$128, d1  ;position x ;14A
+  ;MOVE.W #$50, d2   ;position y ;85
+  
+  ;MOVE.W #$22, d3   ;vel x  ;22
+  ;MOVE.W #$45, d4   ;vel y  ;45
+  
+  ;ADD.W d3, d1 ;add velx to posx
+  ;ADD.W d4, d2 ;add vely to posy
+  
+  ;SUB.W #$10, d2 ; gravity  
+  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;Branching - BRA = goto / BSR = goto then RTS (must add RTS)
+  ;DBRA = Decrement and Branch (stop branching if lower than 0)
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  
+  ;MOVE.W #$13, d0
+  ;BSR IsAChode
+  ;MOVE.W #$14, d4
+  ;BRA IsNotAChode
+;IsAChode:
+  ;MOVE.W #$40, d2
+  ;RTS
+;IsNotAChode:  
+  ;MOVE.W #$50, d3
+  
+  ;MOVE.W #$9, d5
+;Loop:
+  ;ADD.W #$1, d1
+  ;DBRA d5, Loop ;d5 ends up becoming FFFF....? Because -1 maybe?
+  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;player movement test again (with branching)
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  
+  ;MOVE.W #$128, d1  ;position x ;1D2
+  ;MOVE.W #$50, d2   ;position y ;159
+  
+  ;MOVE.W #$22, d3   ;vel x  ;22
+  ;MOVE.W #$45, d4   ;vel y  ;45
+  
+  ;MOVE.W #$4, d5    ;counter (should be 1 - whatever you're thinking of)
+
+;Loop:
+  ;BSR UpdatePlayerPos  
+  ;DBRA d5, Loop
+  ;BRA SHUTDOWN
+  
+;UpdatePlayerPos:
+  ;ADD.W d3, d1 ;add velx to posx
+  ;ADD.W d4, d2 ;add vely to posy  
+  ;SUB.W #GRAVITY, d2 ; gravity    
+  ;RTS
+  
+;SHUTDOWN:
+  ;STOP #0x2700
+  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;comparison - CMP, BEQ, BLT
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  
+  ;MOVE.W #$12, d1
+  ;MOVE.W #$4, d2
+  ;CMP.W d1, d2  ; IF ARG 2 IS LESS THAN ARG 1
+  ;BLT LessThan
+  ;MOVE.W d2, d1
+  ;BRA End
+;LessThan:
+  ;ADD.W #$1, D2
+;End:
+  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;clamp player position to floor height (10)
+  ;BEQ, BNE, BLT, BGT, BGE (or), BLE (or)
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  
+  ;MOVE.W #$30, d3
+  ;MOVE.W #$5, d4
+  
+;ADDGRAVITY:
+  ;SUB.W d4, d3
+  ;CMP #FLOOR, d3
+  ;BGE Landed
+  ;BRA ADDGRAVITY
+;Landed:
+  ;MOVE.W #FLOOR, d3
+  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;address registers (a0 to a7)
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+;level_select_cheat:
+	;DC.B $19,$65,$09,$17
+  
+  ;MOVE.W #level_select_cheat, a0 ; Move address to a0
+  
+  ;move.b (a0), d2	; Move long to d0, post-increment address
+  ;ADD.W #$1, a0
+  ;move.b (a0), d1	; Move long to d0, post-increment address
+  ;ADD.W #$1, a0
+  ;move.b (a0), d3	; Move long to d0, post-increment address
+  ;ADD.W #$1, a0
+  
+  ;Instead of adding to a0, we can also do (a0)+ to 
+  ;automatically increment a0 after doing the move operation
+  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;VDP - Graphics - Background Color, Palettes and Graphics/Sprites
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  
+    ;MOVE.W #$10, player_x
+  ;MOVE.W (player_x), D4
+  
+  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;memory allocation
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  
+  	;rsset ram_start
+  ;player_1	rs.b (player_struct_sz)
+  ;player_2	rs.b (player_struct_sz)
+  
+  ;lea player_1, a0	; Load Effective Address
+  ;lea player_2, a1
+
+  ;sub.w  #attack_damage, player_health(a0)
+  ;move.w #jump_vel, player_vel_y(a1)
+  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;Gamepad
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -1,0 +1,129 @@
+' parameter should be 1 or 0 to enable/disable 68K BUS protection
+declare sub xgm_setBusProtection(value as integer)
+    ' take bus
+    Z80_HALT = &h0100
+    ' wait for bus taken
+    while Z80_HALT.8
+      '
+    wend
+
+    ' set Z80 PROTECT parameter
+    POKE &hA00104 + &h0D, value
+
+    ' release bus
+    Z80_HALT = &h0000
+end sub
+
+
+' return elapsed playing time (in frame)
+declare function xgm_getElapsedTime as long
+    ' take bus
+    Z80_HALT = &h0100
+    ' wait for bus taken
+    while Z80_HALT.8
+      '
+    wend
+
+    ' set Z80 PROTECT parameter
+    elapsed& = PEEK(&hA00104 + &h90)
+    elapsed& = elapsed& [OR] (PEEK(&hA00104 + &h91) << 8)
+    d = 16
+    elapsed& = elapsed& [OR] (PEEK(&hA00104 + &h92) << d)
+
+    ' release bus
+    Z80_HALT = &h0000
+
+    ' fix possible 24 bit negative value (parsing first extra frame)
+    if (elapsed& >= &hFFFFF0) then elapsed& = 0
+
+    return elapsed&
+end function
+   
+    asm
+
+Z80drv:                             ; Z80 XGM driver
+    INCBIN  "D:\dev\work\genesis\basic\xgm\z80_xgm.bin"
+Z80drv_end:
+
+    align 256
+NULLpcm:
+    INCBIN  "D:\dev\work\genesis\basic\xgm\null.raw"
+NULLpcm_end:
+
+    align 256
+XGMsong:
+    INCBIN  "D:\dev\work\genesis\basic\xgm\sor2.xgc"
+
+    align 256
+LOOPpcm:
+    INCBIN  "D:\dev\work\genesis\basic\xgm\loop.raw"
+LOOPpcm_end:
+     
+    align 256
+HATpcm:
+    INCBIN  "D:\dev\work\genesis\basic\xgm\hat.raw"
+HATpcm_end:
+     
+    align 256
+SNAREpcm:
+    INCBIN  "D:\dev\work\genesis\basic\xgm\snare.raw"
+SNAREpcm_end:
+
+    end asm
+
+
+VINT_UPDATESPRITEPOSITIONS:	
+	
+	MOVEQ #$00000000, D2
+	MOVEQ #$00000000, D3
+	MOVEQ #$00000000, D4	
+	MOVEQ #$00000000, D5
+	MOVE.B NUM_SPRITES, D3	
+	
+@LOOP:
+	MOVE.L D4, D2	
+	LEA VDP_SPRITE_TABLE_ADDR_READ, A6
+	LSL.B #$03, D2
+	SWAP D2
+	ADD.L D2, A6
+	MOVE.L A6, VDP_CONTROL
+	MOVE.W VDP_DATA, D5	
+
+
+	MOVEQ #$00000000, D6				; Initialize D6
+	MOVE.B D4, D1
+	LEA SPRITE_VELOCITY_Y, A5 			; Y Velocity for Sprite stored in RAM. Always at SPRITE_VELOCITY_Y memory location + offset (2)
+	LSL.B D1							; Multiply D1 by 2	
+	ADD.W D1, A5						; Add D1 to A5	
+	MOVE.W (A5), D6
+	
+	CMP.W #SCREEN_BOUNDRY_BOTTOM, D5
+	BGT @INVERSE
+	CMP.W #SCREEN_BOUNDRY_TOP, D5
+	BLT @INVERSE	
+	BRA @GO
+@INVERSE:	
+	NEG.W (A5)	
+@GO:	
+	ADD.W (A5), D5	
+
+
+	;LEA VDP_SPRITE_TABLE_ADDR_READ+$60000, A6	
+	;MOVE.L A6, VDP_CONTROL
+	;MOVE.W VDP_DATA, A4
+	;ADD.W #$0004, A4
+	
+	
+	;LEA VDP_SPRITE_TABLE_ADDR+$60000, A6
+	;MOVE.L A6, VDP_CONTROL		
+	;MOVE.W A4, VDP_DATA
+	
+
+	LEA VDP_SPRITE_TABLE_ADDR, A6
+	ADD.L D2, A6
+	MOVE.L A6, VDP_CONTROL	
+	MOVE.W D5, VDP_DATA	
+	
+	ADDQ #$01, D4	
+	DBRA D3, @LOOP
+	RTS

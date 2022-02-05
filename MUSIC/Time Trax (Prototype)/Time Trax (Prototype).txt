@@ -1,0 +1,32 @@
+***********************************************
+* Megadrive VGM music package                 *
+* http://project2612.org/                     *
+***********************************************
+
+Game name:           Time Trax (Prototype)
+System:              Sega Mega Drive
+Complete music dump: Yes
+
+Original author:     Tim Follin
+Developer:           Malibu Interactive
+Publisher:           Black Pearl Software
+Package created by:  RichterEX2
+Package version:     1.01
+
+Files, in approximate game order:
+
+Name                                Length:
+Song list:                          Total  Loop
+Title Screen, Credits               2:23   2:03
+Mission Briefing                    3:46   3:40
+Stages 1, 3, 8                      1:50   1:48
+Stages 2, 5, 7                      2:30   2:29
+Stages 4, 6                         2:21   2:21
+Game Over                           0:13   -
+
+Total Length                       13:05  25:26
+
+Notes:
+
+1.01 - Fixed broken (although funky) loop in
+ "Stages 1, 3, 8" - Richter X

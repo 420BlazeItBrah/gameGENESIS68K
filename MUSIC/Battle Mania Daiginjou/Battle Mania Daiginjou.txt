@@ -1,0 +1,67 @@
+***********************************************
+* Megadrive VGM music package                 *
+* http://project2612.org/                     *
+***********************************************
+
+Game name:           Battle Mania Daiginjou
+System:              Sega Mega Drive
+Complete music dump: Yes
+
+Original author:     Shigenori Masuko,
+                     Yoko Suzuki,
+                     Fumito Tamayama
+Publisher:           Vic Tokai
+Package created by:  DJ Squarewave
+Package version:     1.06
+
+Files, in approximate game order:
+
+Name                                Length:
+                                    Total  Loop
+Open Mind                           0:34   0:32
+Burning Heart                       0:54   0:52
+Mighty Gals 2                       0:32   0:32
+Pick Me Up, Boy!                    0:22   0:22
+Twilight Express                    0:40   0:39
+Approaching                         0:16   0:16
+Great Job!                          0:09   -
+Curry and Rice                      0:33   0:32
+Blue Sky Laundry                    0:44   0:43
+Creeping Thing                      0:48   0:45
+Typhoone Vol. 1                     0:26   0:26
+Typhoone Vol. 2                     0:22   0:22
+Typhoone Vol. 3                     0:18   0:18
+Jakyou                              0:04   -
+Navigators                          0:14   0:13
+Shrine                              1:07   1:00
+On The Air                          0:46   0:45
+Seven Eleven                        0:04   -
+Dancing Hunter                      0:25   0:24
+My Kingdom                          0:57   0:55
+Private Eye                         0:44   0:43
+Ha Na Mi Chi                        0:09   0:02
+Lunatic Monkey                      0:18   0:16
+Iron Casanova                       0:53   0:52
+Hachimaki Please                    0:35   0:35
+Brawing Up                          0:45   0:45
+Kikokusai                           0:09   0:09
+Smoking Head                        0:43   0:43
+Tell Me Why                         0:24   0:13
+Ma Ha Ra Ja                         0:22   0:21
+Very Great Job!                     0:09   -
+Sun Rise Purple                     1:25   1:23
+All Over Tonight                    0:17   -
+Deposit Coins                       0:13   0:13
+
+Notes:
+1.06: Track 15 - Navigators track played twice 
+before looping in previous release. Track has been 
+relogged to fix issue. - Raijin
+
+1.05: Fixed composer credits. -dissident93
+
+1.00: Added composer credits and sorted songs
+by in-game appearance.
+
+Song titles, typos and all, taken from the
+in-game sound test.

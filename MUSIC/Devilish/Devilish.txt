@@ -1,0 +1,67 @@
+***********************************************
+* Megadrive VGM music package                 *
+* http://project2612.org/                     *
+***********************************************
+
+Game name:           Devilish (US) / 
+                     Bad Omen (JP)
+System:              Sega Genesis
+Complete music dump: Yes
+
+Original author:     Hitoshi Sakimoto
+Publisher:           HOT-B
+Package created by:  Dark Pulse
+Package version:     1.01
+
+Files, in Sequential Order:
+
+Name                                Length:
+                                    Total  Loop
+Intro                               0:41   0:41
+Title Screen (US Version)           0:05   -
+Title Screen (JP Version)           0:05   -
+Stage 1 - Graveyard                 0:42   0:23
+Stage 2 - Clock Tower               1:17   1:14
+Stage 3 - Waterfalls                0:50   0:50
+Stage 4 - Air Passage               0:32   0:31
+Stage 5 - Seaside                   1:00   0:59
+Stage 6 - Volcano                   1:07   1:02
+Stage 7 - Prarie                    1:30   1:13
+Defeat the Boss!                    0:59   0:59
+Survive the Boss!                   0:10   0:09
+Final Boss                          0:40   0:23
+Time's Running Out!                 2:45   -
+Stage Clear                         0:04   -
+Game Over                           0:11   -
+Game Clear                          0:45   0:08
+
+Updates:
+1.01 - Whoops, somehow Final Boss got replaced
+by a copy of the Intro song. Sorry!
+
+Notes:
+Holy shit this game's songs kick ass. Too bad
+the game itself is bug-ridden and frustrating
+to play... :( If this were slightly better,
+it would have been a great Arkanoid clone
+with some nice new elements.
+
+Defeat the Boss is for bosses you must beat
+to proceed, while Survive the Boss is for
+bosses that give challenges in Stage 2, 4,
+and 6.
+
+Time's Running Out repeats endlessly - to get
+it to a loop point is when the notes are so
+high it no longer plays some, and this would
+take about 23 minutes. Instead, I simply have
+it play for 2:45 and apruptly stop it there.
+That's longer then it would be ingame,
+anyway. :p
+
+Hitoshi Sakimoto has gone on to greater
+projects - I hear he's scoring Final Fantasy
+XII. Hmm...
+
+I must ponder.
+-DP
